@@ -2,7 +2,6 @@ import { z } from "zod";
 import {
   createTRPCRouter,
   publicProcedure,
-  protectedProcedure,
 } from "@/server/api/trpc";
 
 interface Course {
@@ -10,6 +9,8 @@ interface Course {
   description: string;
   instructor: string;
 }
+
+
 
 const courses: Course[] = [
   {

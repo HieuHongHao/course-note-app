@@ -51,17 +51,6 @@ model Session {
     @@index([userId])
 }
 
-model User {
-    id             String          @id @default(cuid())
-    name           String?
-    email          String?         @unique
-    emailVerified  DateTime?
-    image          String?
-    accounts       Account[]
-    sessions       Session[]
-    // courses        Course[]
-}
-
 model VerificationToken {
     identifier String
     token      String   @unique
@@ -70,23 +59,52 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-// model Course {
-//     id           String @id @default(cuid())
-//     instructorId String
-//     intructor    User   @relation(fields: [instructorId], references: [id])
-//     // comments     CourseComment[]
+model User {
+    id                 String          @id @default(cuid())
+    name               String?
+    email              String?         @unique
+    emailVerified      DateTime?
+    image              String?
+    accounts           Account[]
+    sessions           Session[]
+    courseComments     CourseComment[]
+    coursesInstructing Course[]
+    InCourse           InCourse[]
+}
 
-//     @@index([instructorId])
-// }
+model InCourse {
+    enrolledAt DateTime @default(now())
+    userId     String
+    user       User     @relation(fields: [userId], references: [id])
+    courseId   String
+    course     Course   @relation(fields: [courseId], references: [id])
 
-// model CourseComment {
-//     id       String @id @default(cuid())
-//     courseId String
-//     course   Course @relation(fields: [courseId], references: [id])
-//     authorId String
-//     author   User   @relation(fields: [authorId], references: [id])
-//     content  String @db.Text
+    @@id([userId, courseId])
+    @@index([userId])
+    @@index([courseId])
+}
 
-//     @@index([courseId])
-//     @@index([authorId])
-// }
+model Course {
+    id           String          @id @default(cuid())
+    title        String          @db.Text
+    instructorId String
+    intructor    User            @relation(fields: [instructorId], references: [id])
+    description  String          @db.Text
+    comments     CourseComment[]
+    InCourse     InCourse[]
+
+    @@index([instructorId])
+}
+
+
+model CourseComment {
+    id       String @id @default(cuid())
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id])
+    authorId String
+    author   User   @relation(fields: [authorId], references: [id])
+    content  String @db.Text
+
+    @@index([courseId])
+    @@index([authorId])
+}

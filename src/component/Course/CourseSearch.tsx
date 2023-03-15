@@ -14,18 +14,19 @@ export default function CourseSearch() {
       enabled: search.length !== 0,
     }
   );
-
+  
   useEffect(() => {
     if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
   }, []);
+  
   return (
     <>
       <div className="mt-5 ml-10 text-2xl font-bold text-slate-900">
         Courses
       </div>
-      <input
+    <input
         type="search"
         className="mt-2 ml-10 h-10 w-1/3 rounded-lg border-slate-300 bg-slate-200 pl-5 placeholder-slate-500"
         placeholder="Search for courses"

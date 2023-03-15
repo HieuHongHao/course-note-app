@@ -3,6 +3,7 @@ import Content from "@/component/Content";
 import NavBar from "@/component/NavBar";
 import SideBar from "@/component/SideBar";
 
+
 export default function DashBoard() {
   const [activeItem, setActiveItem] = useState("Courses");
   return (
@@ -15,3 +16,4 @@ export default function DashBoard() {
     </div>
   );
 }
+

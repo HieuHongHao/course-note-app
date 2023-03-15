@@ -7,12 +7,6 @@ import {
 
 
 
-
-interface Pokemon{
-  name: string,
-  abilities: string[]
-}
-
 export const exampleRouter = createTRPCRouter({
   hello: publicProcedure
     .input(z.object({ text: z.string() }))

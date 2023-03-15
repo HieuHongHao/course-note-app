@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-var-requires */
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -7,7 +9,13 @@ const config = {
   // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  plugins: [require("daisyui"), require("tailwindcss-radix")(),require('@tailwindcss/typography')],
+  plugins: [
+    require("daisyui"),
+    // @ts-ignore
+    require("tailwindcss-radix")(),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/line-clamp"),
+  ],
   daisyui: {
     themes: [],
   },
