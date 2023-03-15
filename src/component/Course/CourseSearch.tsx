@@ -6,27 +6,21 @@ import CourseView from "./CourseView";
 export default function CourseSearch() {
   const [search, setSearch] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const { data, isSuccess } = api.course.getCourse.useQuery(
-    {
-      courseName: search,
-    },
-    {
-      enabled: search.length !== 0,
-    }
-  );
-  
+  const { data, isSuccess } = api.course.getCourse.useQuery({
+    courseName: search,
+  });
   useEffect(() => {
     if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
   }, []);
-  
+
   return (
     <>
       <div className="mt-5 ml-10 text-2xl font-bold text-slate-900">
         Courses
       </div>
-    <input
+      <input
         type="search"
         className="mt-2 ml-10 h-10 w-1/3 rounded-lg border-slate-300 bg-slate-200 pl-5 placeholder-slate-500"
         placeholder="Search for courses"

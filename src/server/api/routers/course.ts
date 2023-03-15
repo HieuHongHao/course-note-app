@@ -1,16 +1,11 @@
 import { z } from "zod";
-import {
-  createTRPCRouter,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
 interface Course {
   name: string;
   description: string;
   instructor: string;
 }
-
-
 
 const courses: Course[] = [
   {
@@ -53,6 +48,9 @@ export const courseRouter = createTRPCRouter({
       })
     )
     .query(({ input }) => {
+      if (input.courseName === "") {
+        return courses;
+      }
       const res = courses.filter((course) =>
         course.name.startsWith(input.courseName)
       );

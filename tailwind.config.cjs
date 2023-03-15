@@ -6,6 +6,12 @@ const config = {
   theme: {
     extend: {},
   },
+  // safelist:[
+  //   {
+  //     pattern: /bg-(teal|yellow|pink)-(700)/,
+  //     variants: ['lg', 'hover', 'focus', 'lg:hover'],
+  //   }
+  // ],
   // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/ban-ts-comment
   // @ts-ignore
   // eslint-disable-next-line @typescript-eslint/no-var-requires
