@@ -77,7 +77,7 @@ export default function Courses() {
   return (
     <div className="flex flex-col">
       <Tab.Group>
-        <Tab.List className="mt-6 mb-0 h-14 w-1/2 flex-row items-center justify-center space-x-2 rounded-t bg-white pr-0">
+        <Tab.List className="mt-6 mb-0 ml-5 h-14 w-1/2 flex-row items-center justify-center space-x-2 rounded-t bg-white pr-0">
           <Tab className="border-box w-1/4 text-lg font-semibold text-slate-700 hover:border-b hover:border-b-slate-500 focus:box-content focus:border-b focus:border-b-slate-500">
             Other Courses
           </Tab>
