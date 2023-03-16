@@ -13,6 +13,7 @@ export default function DashBoard() {
         <SideBar activeItem={activeItem} setActiveItem={setActiveItem} />
         <Content activeItem={activeItem} />
       </div>
+      
     </div>
   );
 }

@@ -1,13 +1,15 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
-interface Course {
+interface TestCourse {
   name: string;
   description: string;
   instructor: string;
 }
 
-const courses: Course[] = [
+
+
+const courses: TestCourse[] = [
   {
     name: "COMPSCI 320: Introduction to Software Engineer",
     description:

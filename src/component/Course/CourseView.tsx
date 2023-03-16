@@ -157,7 +157,7 @@ const CourseView: React.FC<CourseViewProps> = ({
 }) => {
   const session = useSession();
   return (
-    <div className="ml-5 mr-auto mt-10 mb-0 flex h-max max-w-xl flex-col rounded-lg border-2  border-slate-200 ">
+    <div className="ml-5 mr-auto mt-10 mb-0 flex h-max max-w-xl flex-col rounded-lg bg-white drop-shadow">
       <div className="ml-5 mt-3 text-lg font-bold text-slate-900">
         {courseName}
       </div>
@@ -169,12 +169,14 @@ const CourseView: React.FC<CourseViewProps> = ({
         />
         <div className="ml-2 flex flex-col space-y-0">
           <div className="font-semibold text-slate-900">{instructor}</div>
-          <div className="text-slate-500">{session.data?.user.email}</div>
+          <div className="text-slate-500">
+            {instructor.replace(" ", "").toLowerCase() + "@gmail.com"}
+          </div>
         </div>
 
         <div className="ml-auto flex flex-col">
           <StatusButton state="Following" />
-          <div className="mt-1 ml-5 text-sm text-slate-500">
+          <div className="flex-grow-2 mt-0 ml-5 text-sm text-slate-500">
             {
               new Date()
                 .toISOString()
@@ -185,7 +187,7 @@ const CourseView: React.FC<CourseViewProps> = ({
           </div>
         </div>
       </div>
-      <p className="ml-5 px-1 text-base font-normal text-slate-600 line-clamp-5">
+      <p className="ml-5 px-1 text-base font-normal text-slate-800 line-clamp-5">
         {description}
       </p>
       <div className="ml-4 flex flex-row">
