@@ -9,6 +9,7 @@ import {
 import { Popover, Transition } from "@headlessui/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import moment from "moment";
 
 interface CourseViewProps {
   description: string;
@@ -157,7 +158,7 @@ const CourseView: React.FC<CourseViewProps> = ({
 }) => {
   const session = useSession();
   return (
-    <div className="ml-5 mr-auto mt-10 mb-0 flex h-max max-w-xl flex-col rounded-lg bg-white drop-shadow">
+    <div className="ml-5 mr-auto mt-10 mb-0 flex h-max max-w-xl flex-col rounded-xl border-2 border-slate-400 bg-white">
       <div className="ml-5 mt-3 text-lg font-bold text-slate-900">
         {courseName}
       </div>
@@ -168,23 +169,19 @@ const CourseView: React.FC<CourseViewProps> = ({
           className="object-fit h-10 w-10 rounded-full"
         />
         <div className="ml-2 flex flex-col space-y-0">
-          <div className="font-semibold text-slate-900">{instructor}</div>
+          <div className="flex flex-row space-x-3">
+            <div className="font-semibold text-slate-900">{instructor}</div>
+            <div className="mt-0.5 text-sm text-slate-500">
+              {moment().format("MMMM Do YYYY")}
+            </div>
+          </div>
           <div className="text-slate-500">
             {instructor.replace(" ", "").toLowerCase() + "@gmail.com"}
           </div>
         </div>
 
-        <div className="ml-auto flex flex-col">
+        <div className="ml-auto">
           <StatusButton state="Following" />
-          <div className="flex-grow-2 mt-0 ml-5 text-sm text-slate-500">
-            {
-              new Date()
-                .toISOString()
-                .replace("-", "/")
-                .split("T")[0]!
-                .replace("-", "/")!
-            }
-          </div>
         </div>
       </div>
       <p className="ml-5 px-1 text-base font-normal text-slate-800 line-clamp-5">
