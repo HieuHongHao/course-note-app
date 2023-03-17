@@ -3,22 +3,32 @@ import { useEffect, useRef, useState } from "react";
 import { api } from "@/utils/api";
 import CourseView from "./CourseView";
 import { PlusIcon } from "@heroicons/react/24/outline";
-import { Tab, Transition } from "@headlessui/react";
+import { Tab, Transition, Popover } from "@headlessui/react";
+import autoAnimate from "@formkit/auto-animate";
 
 function CourseSearch() {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const parent = useRef<HTMLDivElement>(null);
   const { data, isSuccess } = api.course.getCourse.useQuery({
     courseName: search,
   });
+
   useEffect(() => {
     if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
   }, []);
+  useEffect(() => {
+    parent.current &&
+      autoAnimate(parent.current, {
+        duration: 300,
+      });
+  }, [parent]);
+
   return (
     <>
-      <div className="mt-5 ml-10 text-2xl font-bold text-slate-900">
+      <div className="mt-0 ml-10 text-2xl font-bold text-slate-900">
         Featuring Courses
       </div>
       <input
@@ -28,9 +38,9 @@ function CourseSearch() {
         onChange={(e) => setSearch(e.target.value)}
         ref={inputRef}
       />
-      {isSuccess && (
-        <div className="m-5 mt-0 mb-0 flex flex-row flex-wrap">
-          {data.map((course) => {
+      <div className="m-5 mt-0 mb-0 flex flex-row flex-wrap" ref={parent}>
+        {isSuccess &&
+          data.map((course) => {
             return (
               <CourseView
                 key={course.name}
@@ -40,8 +50,7 @@ function CourseSearch() {
               />
             );
           })}
-        </div>
-      )}
+      </div>
     </>
   );
 }
@@ -49,7 +58,7 @@ function CourseSearch() {
 function YourCourse() {
   return (
     <>
-      <div className="mt-5 ml-10 text-2xl font-bold text-slate-900">
+      <div className="mt-0 ml-10 text-2xl font-bold text-slate-900">
         Your Courses
       </div>
       <input
@@ -64,12 +73,60 @@ function YourCourse() {
 
 function CreateCourseButton() {
   return (
-    <div className="mb-0 ml-5 mr-auto mt-10 flex h-64 w-5/12 flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300">
-      <div className="btn bg-sky-200 font-semibold text-sky-600 hover:bg-sky-300">
-        <PlusIcon className="mr-1 h-4 w-4 object-cover" />
-        New Course
-      </div>
-    </div>
+    <Popover>
+      <Popover.Button className="relative mb-0 ml-5 mr-auto mt-10 flex h-64 w-5/12 flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-300">
+        <div className="btn bg-sky-200 font-semibold text-sky-600 hover:bg-sky-300">
+          <PlusIcon className="mr-1 h-4 w-4 object-cover" />
+          New Course
+        </div>
+      </Popover.Button>
+      <Transition
+        enter="transition duration-100 ease-out"
+        enterFrom="transform scale-95 opacity-0"
+        enterTo="transform scale-100 opacity-100"
+        leave="transition duration-75 ease-out"
+        leaveFrom="transform scale-100 opacity-100"
+        leaveTo="transform scale-95 opacity-0"
+      >
+        <Popover.Panel className="absolute flex w-96 translate-x-96 -translate-y-72 flex-col rounded-xl border-2 border-slate-500 bg-white">
+          <label
+            htmlFor=""
+            className="ml-5 mr-5 mb-0 mt-2 text-sm font-semibold text-slate-700"
+          >
+            Course name
+          </label>
+          <input
+            type="text"
+            className="mr-5 ml-5 mb-0 mt-0 w-2/3 rounded-md border border-slate-400 bg-white"
+          />
+          <label
+            htmlFor=""
+            className="ml-5 mr-5 mb-0 mt-0 text-sm font-semibold text-slate-700"
+          >
+            Email
+          </label>
+          <input
+            type="email"
+            className="ml-5 mr-5 mb-0 mt-0 w-2/3 rounded-md border border-slate-400 bg-white"
+          />
+          <label
+            htmlFor=""
+            className="ml-5 mr-5 mb-0 mt-0 text-sm font-semibold text-slate-700"
+          >
+            Course Description
+          </label>
+
+          <textarea
+            name=""
+            id=""
+            className="ml-5 mr-5 mb-2 mt-0 h-48 rounded-md border border-slate-400"
+          ></textarea>
+          <button className="ml-auto mr-auto mb-2 w-max rounded-md bg-sky-200 px-4 py-1 font-semibold text-sky-600 hover:bg-sky-300">
+            Submit
+          </button>
+        </Popover.Panel>
+      </Transition>
+    </Popover>
   );
 }
 

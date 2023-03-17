@@ -17,13 +17,13 @@ interface CourseViewProps {
   courseName: string;
 }
 
-type State = "Completed" | "Following" | "Dropped";
+type State = "Completed" | "Following" | "Dropped" | "Unfollowed";
 
 interface Status {
   state: State;
 }
 
-const statuses: State[] = ["Completed", "Following", "Dropped"];
+const statuses: State[] = ["Completed", "Following", "Dropped", "Unfollowed"];
 
 // todo: map statusColor to static classname
 const statusColor = {
@@ -81,6 +81,24 @@ const statusColor = {
       "700": "text-pink-700",
     },
   },
+  Unfollowed: {
+    bg: {
+      "200": "bg-sky-200",
+      "300": "bg-sky-300",
+      "500": "bg-sky-500",
+      "700": "bg-sky-700",
+      hover: {
+        "200": "hover:bg-sky-200",
+        "300": "hover:bg-sky-300",
+        "500": "hover:bg-sky-500",
+        "700": "hover:bg-sky-700",
+      },
+    },
+    text: {
+      "600": "text-sky-600",
+      "700": "text-sky-700",
+    },
+  },
 };
 
 const StatusButton: React.FC<Status> = ({ state }) => {
@@ -119,7 +137,7 @@ const StatusButton: React.FC<Status> = ({ state }) => {
             leaveFrom="transform scale-100 opacity-100"
             leaveTo="transform scale-95 opacity-0"
           >
-            <Popover.Panel className="border-200 absolute flex w-max -translate-y-24 translate-x-12 flex-col rounded-lg border bg-slate-100 px-1">
+            <Popover.Panel className="border-200 absolute flex w-max -translate-y-32 translate-x-12 flex-col rounded-lg border bg-slate-100 px-1">
               {({ close }) => (
                 <>
                   {statuses.map((status) => {
@@ -179,9 +197,9 @@ const CourseView: React.FC<CourseViewProps> = ({
             {instructor.replace(" ", "").toLowerCase() + "@gmail.com"}
           </div>
         </div>
-
+        
         <div className="ml-auto">
-          <StatusButton state="Following" />
+          <StatusButton state="Unfollowed" />
         </div>
       </div>
       <p className="ml-5 px-1 text-base font-normal text-slate-800 line-clamp-5">
