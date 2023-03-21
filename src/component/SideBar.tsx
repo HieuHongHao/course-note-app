@@ -39,18 +39,18 @@ interface SideBarProps {
 
 export default function SideBar({ activeItem, setActiveItem }: SideBarProps) {
   return (
-    <div className="m-2 mt-0 flex min-h-screen w-max flex-col rounded-lg bg-slate-50 border-2 border-slate-200">
+    <div className="m-2 mt-0 flex min-h-screen w-max flex-col rounded-lg bg-white">
       {SideBarItems.map((item) => {
         return (
           <button
             key={item}
-            className={`btn mt-5 ml-2 mr-4 mb-0 flex h-max w-11/12 flex-col items-center justify-center rounded-md border-none p-2  hover:bg-slate-300 ${
-              item === activeItem ? "bg-slate-300" : "bg-inherit"
+            className={`btn mt-5 ml-1 mb-0 flex h-max w-11/12 flex-col items-center justify-center rounded-md border-none p-2 pr-1 hover:bg-slate-200 ${
+              item === activeItem ? "bg-slate-200" : "bg-inherit"
             }`}
             onClick={() => setActiveItem(item)}
           >
             <SideBarIcon item={item} />
-            <span className="text-base font-normal normal-case text-slate-700 text-center">
+            <span className="text-center text-base font-normal normal-case text-slate-700">
               {item}
             </span>
           </button>

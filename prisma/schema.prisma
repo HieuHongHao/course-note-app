@@ -70,6 +70,7 @@ model User {
     courseComments     CourseComment[]
     coursesInstructing Course[]
     InCourse           InCourse[]
+    Status             Status[]
 }
 
 model InCourse {
@@ -92,10 +93,28 @@ model Course {
     description  String          @db.Text
     comments     CourseComment[]
     InCourse     InCourse[]
+    Status       Status[]
 
     @@index([instructorId])
 }
 
+model Status {
+    userId   String
+    user     User   @relation(fields: [userId], references: [id])
+    courseId String
+    course   Course @relation(fields: [courseId], references: [id])
+    state    State
+
+    @@id([userId, courseId])
+    @@index([courseId])
+    @@index([userId])
+}
+
+enum State {
+    Following
+    Completed
+    Dropped
+}
 
 model CourseComment {
     id       String @id @default(cuid())

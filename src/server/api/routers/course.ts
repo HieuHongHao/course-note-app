@@ -1,18 +1,13 @@
-import { z } from "zod";
-import {
-  createTRPCRouter,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { object, z } from "zod";
+import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 
-interface Course {
+interface TestCourse {
   name: string;
   description: string;
   instructor: string;
 }
 
-
-
-const courses: Course[] = [
+const courses: TestCourse[] = [
   {
     name: "COMPSCI 320: Introduction to Software Engineer",
     description:
@@ -53,9 +48,44 @@ export const courseRouter = createTRPCRouter({
       })
     )
     .query(({ input }) => {
+      if (input.courseName === "") {
+        return courses;
+      }
       const res = courses.filter((course) =>
         course.name.startsWith(input.courseName)
       );
       return res;
+    }),
+  getUserCourse: publicProcedure.query(async ({ ctx }) => {
+    return await ctx.prisma.course.findMany({
+      where: {
+        instructorId: ctx.session?.user.id,
+      },
+      include:{
+        intructor:true
+      }
+    });
+  }),
+  createCourse: publicProcedure
+    .input(
+      z.object({
+        courseName: z.string(),
+        courseDescription: z.string(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const { courseName, courseDescription } = input;
+      
+      await ctx.prisma.course.create({
+        data: {
+          title: courseName,
+          description: courseDescription,
+          intructor: {
+            connect: {
+              id: ctx.session?.user.id,
+            },
+          },
+        },
+      });
     }),
 });
