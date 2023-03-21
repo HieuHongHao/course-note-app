@@ -39,7 +39,7 @@ interface SideBarProps {
 
 export default function SideBar({ activeItem, setActiveItem }: SideBarProps) {
   return (
-    <div className="m-2 mt-0 flex min-h-screen w-max flex-col rounded-lg border-2 border-slate-600 bg-white">
+    <div className="m-2 mt-0 flex min-h-screen w-max flex-col rounded-lg bg-white">
       {SideBarItems.map((item) => {
         return (
           <button

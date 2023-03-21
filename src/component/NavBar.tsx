@@ -6,7 +6,7 @@ import { signOut, useSession } from "next-auth/react";
 export default function NavBar() {
   const session = useSession();
   return (
-    <div className="navbar m-5 w-full ml-2 rounded-lg border-2 border-slate-600 bg-white">
+    <div className="navbar m-5 w-full ml-2 rounded-lg bg-white">
       <a className="btn-ghost btn text-lg normal-case text-slate-700 hover:border-none hover:bg-slate-200">
         Home
       </a>

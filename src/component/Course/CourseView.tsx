@@ -175,12 +175,13 @@ const CourseView: React.FC<CourseViewProps> = ({
   courseName,
 }) => {
   const session = useSession();
+
   return (
-    <div className="ml-5 mr-auto mt-10 mb-0 flex h-max max-w-xl flex-col rounded-xl border-2 border-slate-400 bg-white">
+    <div className="ml-5 mr-auto mt-10 mb-0 flex h-max max-w-xl flex-col rounded-xl bg-white">
       <div className="ml-5 mt-3 text-lg font-bold text-slate-900">
         {courseName}
       </div>
-      <div className="m-5 mt-1 flex flex-row">
+      <div className="m-5  mt-1 flex flex-row">
         <img
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
           src={session.data?.user.image!}
@@ -189,15 +190,12 @@ const CourseView: React.FC<CourseViewProps> = ({
         <div className="ml-2 flex flex-col space-y-0">
           <div className="flex flex-row space-x-3">
             <div className="font-semibold text-slate-900">{instructor}</div>
-            <div className="mt-0.5 text-sm text-slate-500">
-              {moment().format("MMMM Do YYYY")}
-            </div>
           </div>
           <div className="text-slate-500">
             {instructor.replace(" ", "").toLowerCase() + "@gmail.com"}
           </div>
         </div>
-        
+
         <div className="ml-auto">
           <StatusButton state="Unfollowed" />
         </div>
@@ -205,6 +203,9 @@ const CourseView: React.FC<CourseViewProps> = ({
       <p className="ml-5 px-1 text-base font-normal text-slate-800 line-clamp-5">
         {description}
       </p>
+      <div className="ml-6 mt-1 text-xs text-slate-500">
+        {moment().format("MMMM Do YYYY")}
+      </div>
       <div className="ml-4 flex flex-row">
         <div className="btn-ghost btn flex flex-row space-x-1">
           <HeartIcon className="m-1 mr-0 h-4 w-4" />

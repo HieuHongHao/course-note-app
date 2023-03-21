@@ -16,7 +16,7 @@ function ContentItem({ item }: { item: string }) {
 
 export default function Content({ activeItem }: { activeItem: string }) {
   return (
-    <div className="m-2 mt-0 min-h-screen w-full rounded-lg bg-white border-2 border-slate-600 pb-5">
+    <div className="m-2 mt-0 min-h-screen w-full rounded-lg pb-5">
       <ContentItem item={activeItem} />
     </div>
   );
